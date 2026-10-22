@@ -99,11 +99,10 @@ def signup_for_activity(activity_name: str, email: str):
     activity = activities[activity_name]
 
     # Validate student is not already signed up
-    if activity["participants"].count(email) > 1:
-        activity["participants"].remove(email)
+    if email in activity["participants"]:
         raise HTTPException(status_code=400, detail="Student is already signed up for this activity")
 
-  # Add student
+    # Add student
     activity["participants"].append(email)
 
     return {"message": f"Signed up {email} for {activity_name}"}
